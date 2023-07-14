@@ -34,3 +34,19 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+function playGame() {
+    let playerScore = 0;
+    let computerScore = 0;
+    for (let i = 0; i < 5; i++) {
+        let round = playRound(getPlayerChoice(), getComputerChoice())
+        if (round.slice(4, 8) === "win!") {
+            playerScore++;
+        } else if (round.slice(4, 8) === "lose") {
+            computerScore++;
+        }
+        console.log(round)
+    }
+    console.log(`Your score: ${playerScore} points.`);
+    console.log(`Opponent's score: ${computerScore} points.`);
+}
+
