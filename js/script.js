@@ -18,35 +18,41 @@ function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         return "Draw! You chose the same hand.";
     } else if (playerSelection === "rock" && computerSelection === "paper") {
+        opponentScore++;
         return "You lose. Paper beats rock.";
     } else if (playerSelection === "paper" && computerSelection === "scissors") {
+        opponentScore++;
         return "You lose. Scissors beat paper.";
     } else if (playerSelection === "scissors" && computerSelection === "rock") {
+        opponentScore++;
         return "You lose. Rock beats scissors.";
     } else if (playerSelection === "rock" && computerSelection === "scissors") {
+        playerScore++;
         return "You win! Rock beats scissors!";
     } else if (playerSelection === "paper" && computerSelection === "rock") {
+        playerScore++;
         return "You win! Paper beats rock!";
     } else if (playerSelection === "scissors" && computerSelection === "paper") {
+        playerScore++;
         return "You win! Scissors beat paper!";
     } else {
         return "Something went wrong";
     }
 }
 
-function playGame() {
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        let round = playRound(getPlayerChoice(), getComputerChoice())
-        if (round.slice(4, 8) === "win!") {
-            playerScore++;
-        } else if (round.slice(4, 8) === "lose") {
-            computerScore++;
-        }
-        console.log(round)
-    }
-    console.log(`Your score: ${playerScore} points.`);
-    console.log(`Opponent's score: ${computerScore} points.`);
-}
+let playerScore = 0;
+let opponentScore = 0;
+
+const buttons = document.querySelectorAll("button");
+const results = document.querySelector(".results");
+const playerScoreDisplay = document.querySelector(".player-score");
+const opponentScoreDisplay = document.querySelector(".opponent-score");
+
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        results.textContent = playRound(button.className, getComputerChoice());
+        playerScoreDisplay.textContent = `Your score: ${playerScore}`;
+        opponentScoreDisplay.textContent = `Opponent's score: ${opponentScore}`;
+    });
+})
 
